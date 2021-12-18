@@ -1,3 +1,3 @@
-# Laboratory work №5
+# Laboratory work №7
 
 Построение кривой Безье
