@@ -1,0 +1,68 @@
+<html>
+   <body>
+       <h1>Куб</h1>
+       <hr size=15 color="red">
+       <canvas width='700' height='700' id='lab_01_1'> </canvas>
+       <hr size=15 color="red">
+       <h2>Осуществление управления кубиком при помощи кнопок клавиатуры</h2>
+       <script>
+            var canvas = document.getElementById('lab_01_1');
+            var ctx = canvas.getContext('2d');
+            canvas.width = document.documentElement.scrollWidth;
+            var coord_x = 10;
+            var coord_y = 10;
+            var speed_of_x = 1;
+            var speed_of_y = 1;
+            var max_speed_of_x = 5;
+            var max_speed_of_y = 5;
+            var rectangle_width = 10;
+            var rectangle_height = 10;
+            setInterval(function(){
+                ctx.fillStyle="#005023";
+                ctx.clearRect(0,0,canvas.width, canvas.height);
+                ctx.fillRect(0+coord_x, 0+coord_y,rectangle_width,rectangle_height);
+                if (coord_x >= canvas.width-rectangle_width) {
+                        speed_of_x = -Math.abs(speed_of_x);
+                    }
+                if (coord_x <= 0+rectangle_width) {
+                        speed_of_x = Math.abs(speed_of_x);
+                    }
+                if (coord_y >= canvas.height-rectangle_height) {
+                        speed_of_y = -Math.abs(speed_of_y);
+                    }
+                if (coord_y <= 0+rectangle_height) {
+                        speed_of_y = Math.abs(speed_of_y);
+                    }
+                coord_y = coord_y+speed_of_y;
+                coord_x = coord_x+speed_of_x;
+                update_text();
+            },10);
+
+            function change_acceleration(e) {
+                    switch(e.keyCode) {
+                            case 39:   //вправо
+                                if (speed_of_x < max_speed_of_x) {
+                                        speed_of_x =speed_of_x + 1;
+                                    }
+                                break;
+                            case 37:  //влево
+                                if (speed_of_x > -max_speed_of_x) {
+                                        speed_of_x = speed_of_x - 1;
+                                    }
+                                break;
+                            case 38:   //вверх
+                                if (speed_of_y > -max_speed_of_y) {
+                                        speed_of_y = speed_of_y - 1;
+                                    }
+                                break;
+                                case 40:   //вниз
+                                    if (speed_of_y < max_speed_of_y) {
+                                            speed_of_y = speed_of_y + 1;
+                                        }
+                                    break;
+                        }
+                }
+            addEventListener("keydown", change_acceleration);
+       </script>
+   </body> 
+</html>

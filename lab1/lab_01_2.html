@@ -1,0 +1,20 @@
+<html>
+   <body>
+       <canvas width='700' height='700' id='lab_01_2'> </canvas>
+       <script>
+            var canvas = document.getElementById('lab_01_2');
+            var ctx = canvas.getContext('2d');
+            var lines = 250;
+            var dot_start,dots;
+            var width = canvas.width/2 - lines;
+            for (var ActualLine = 0; ActualLine < lines; ActualLine++) {
+                    dot_start = lines - ActualLine;
+                    dots = ActualLine*2 -1;
+                    ctx.fillStyle="#005023";
+                    for (let j=0;j<dots;j++) {
+                            ctx.fillRect(width+dot_start+j, ActualLine,2,2);
+                        }
+                }
+       </script>
+   </body> 
+</html>
