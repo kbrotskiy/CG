@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <canvas width="1000" , height="600" , id="num_1"> </canvas>
+        <canvas width="1000" , height="600" , id="num_2"> </canvas>
+        <script>
+            var canvas = document.getElementById("num_1");
+            var ctx = canvas.getContext("2d");
+            var canvas2 = document.getElementById("num_2");
+            var ctx2 = canvas2.getContext("2d");
+            let img = new Image();
+            img.crossOrigin = "anonymus";
+            img.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Suricatos_%28Suricata_suricatta%29%2C_parque_nacional_Makgadikgadi_Pans%2C_Botsuana%2C_2018-07-30%2C_DD_29.jpg/1000px-Suricatos_%28Suricata_suricatta%29%2C_parque_nacional_Makgadikgadi_Pans%2C_Botsuana%2C_2018-07-30%2C_DD_29.jpg";
+            let value=0;
+            let img_data = new ImageData(1,1);
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
+                img_data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                console.log(img_data);
+                for (var index = 0; index < img_data.data.length; index += 4) {
+                        value = (img_data.data[index] + img_data.data[index+1] + img_data.data[index+2])/3;
+                        img_data.data[index] = value;
+                        img_data.data[index + 1] = value;
+                        img_data.data[index + 2] = value;
+                        img_data.data[index + 3] = 255;
+                    }
+                ctx2.putImageData(img_data, 0, 0, 0, 0, canvas2.width, canvas2.height);
+                }
+        </script>
+    </body>
+</html>
