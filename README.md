@@ -1,1 +1,1 @@
-# CG
+# Laboratory works on Computer Graphics
