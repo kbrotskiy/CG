@@ -1,0 +1,59 @@
+<html>
+    <head>
+		<input type="file" id="fileInput" onchange="readFile(this)"><br>
+            <hr size="10" color="skyblue">
+		<script type="text/javascript" src="./graph.js"></script>
+     </head>
+  <body>
+	<canvas width="2000", height="1500", id="canvas"></canvas>
+    <script>
+		var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+		let scale = 2;
+		let step = 1;
+		let enable_rotation = false;		
+        let scene = new Scene();
+		let alpha = 0*Math.PI/180;
+		let beta = 0*Math.PI/180;
+		let gamma = 0*Math.PI/180;
+		scene.scale(3);
+		scene.light_source.diffuse_coef = 0.2;
+        scene.light_source.position.set(400,400,300);
+
+		function readFile(input) {
+				let file = input.files[0];
+				let reader = new FileReader();
+				reader.readAsText(file);
+				reader.onload = function() {
+						scene.object = obj_parse(reader.result);
+						ctx.clearRect(0,0,canvas.width, canvas.height);
+						scene.rotate(alpha,beta,gamma);
+						scene.draw(ctx,418, 265);
+						enable_rotation = true
+					};
+				reader.onerror = function() {
+					console.log(reader.error);
+				};
+			}
+
+		setInterval(function(){
+				if (enable_rotation) {
+						ctx.clearRect(0,0,canvas.width, canvas.height);
+						gamma += step/100;
+						alpha += step/10;
+						if (alpha > 360 || alpha < 0) {
+								alpha = Math.abs(alpha - 360)
+							}
+						if (beta > 360 || beta < 0) {
+								beta = Math.abs(beta - 360)
+							}
+						if (gamma > 360 || gamma < 0) {
+								gamma = Math.abs(gamma - 360)
+							}
+						scene.rotate(alpha,beta,gamma);
+						scene.draw(ctx,418, 265);
+					}
+			},17);	
+	</script>
+  </body>
+</html>
